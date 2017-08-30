@@ -15,13 +15,8 @@ namespace VideoStore.Models
         public int CustomerID { get; set; }
         public CustomerModel CustomerModel { get; set; }
         public DateTime RentalDate { get; set; } = DateTime.Now;
-        public DateTime DueDate { get; set; }
+        public DateTime DueDate { get; set; } = DateTime.Now.AddDays(5);
         public DateTime ReturnDate { get; set; }
-
-        public void Rental()
-        {
-           DueDate = RentalDate.AddDays(5);
-        }
 
     }
 }

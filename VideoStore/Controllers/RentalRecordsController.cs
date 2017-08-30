@@ -24,18 +24,26 @@ namespace VideoStore.Controllers
             return View(service.GetAllMovies());
         }
 
-        public IActionResult Create(int id)
+        public IActionResult Create()
         {
-            
-
-            return View();
+            //populate all customers and movies on rental form
+            var newRental = new VideoStoreServices(_context);
+            return View(newRental.PopulateNewRentalRecord());
         }
-
-        public IActionResult Contact()
+        [HttpPost]
+        public IActionResult CreateRecord(int movie, int customer, DateTime rentaldate, DateTime duedate)
         {
-            ViewData["Message"] = "Your contact page.";
+            var newRecord = new RentalRecordModel
+            {
+                MovieID = movie,
+                CustomerID = customer,
+                RentalDate = rentaldate,
+                DueDate = duedate
+            };
+            _context.RentalRecord.Add(newRecord);
+            _context.SaveChanges();
 
-            return View();
+            return Redirect("Index");
         }
 
         public IActionResult Error()
