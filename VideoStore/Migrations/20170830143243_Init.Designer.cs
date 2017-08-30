@@ -11,7 +11,7 @@ using VideoStore;
 namespace VideoStore.Migrations
 {
     [DbContext(typeof(VideosdbContext))]
-    [Migration("20170829143824_Init")]
+    [Migration("20170830143243_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace VideoStore.Migrations
 
             modelBuilder.Entity("VideoStore.Models.GenreModel", b =>
                 {
-                    b.Property<string>("GenreID")
+                    b.Property<int>("GenreID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("GenreName");
@@ -54,15 +54,13 @@ namespace VideoStore.Migrations
 
                     b.Property<int>("GenreID");
 
-                    b.Property<string>("GenreModelGenreID");
-
                     b.Property<string>("MovieDescription");
 
                     b.Property<string>("MovieName");
 
                     b.HasKey("MovieID");
 
-                    b.HasIndex("GenreModelGenreID");
+                    b.HasIndex("GenreID");
 
                     b.ToTable("Movie");
                 });
@@ -95,7 +93,8 @@ namespace VideoStore.Migrations
                 {
                     b.HasOne("VideoStore.Models.GenreModel", "GenreModel")
                         .WithMany()
-                        .HasForeignKey("GenreModelGenreID");
+                        .HasForeignKey("GenreID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("VideoStore.Models.RentalRecordModel", b =>

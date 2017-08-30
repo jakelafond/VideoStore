@@ -1,0 +1,15 @@
+@model IEnumerable<MovieViewModel>
+
+@{
+    ViewData["Title"] = "Rent a Movie Home";
+}
+
+<h1>Movies to Rent</h1>
+
+    @foreach(var item in Model)
+    {
+        <h4>@item.MovieName</h4>
+        <p>@item.MovieDescription</p>
+        <p>@item.GenreName</p>
+        <a asp-controller="RentalRecords" asp-action="Create">Rent</a>
+    }

@@ -27,7 +27,8 @@ namespace VideoStore.Migrations
                 name: "Genre",
                 columns: table => new
                 {
-                    GenreID = table.Column<string>(type: "text", nullable: false),
+                    GenreID = table.Column<int>(type: "int4", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     GenreName = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -42,7 +43,6 @@ namespace VideoStore.Migrations
                     MovieID = table.Column<int>(type: "int4", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     GenreID = table.Column<int>(type: "int4", nullable: false),
-                    GenreModelGenreID = table.Column<string>(type: "text", nullable: true),
                     MovieDescription = table.Column<string>(type: "text", nullable: true),
                     MovieName = table.Column<string>(type: "text", nullable: true)
                 },
@@ -50,11 +50,11 @@ namespace VideoStore.Migrations
                 {
                     table.PrimaryKey("PK_Movie", x => x.MovieID);
                     table.ForeignKey(
-                        name: "FK_Movie_Genre_GenreModelGenreID",
-                        column: x => x.GenreModelGenreID,
+                        name: "FK_Movie_Genre_GenreID",
+                        column: x => x.GenreID,
                         principalTable: "Genre",
                         principalColumn: "GenreID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,9 +87,9 @@ namespace VideoStore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Movie_GenreModelGenreID",
+                name: "IX_Movie_GenreID",
                 table: "Movie",
-                column: "GenreModelGenreID");
+                column: "GenreID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentalRecord_CustomerID",

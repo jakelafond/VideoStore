@@ -6,7 +6,7 @@ namespace VideoStore.Models
     public class GenreModel
     {
         [Key]
-        public string GenreID { get; set; }
+        public int GenreID { get; set; }
 
         public string GenreName { get; set; }
     }

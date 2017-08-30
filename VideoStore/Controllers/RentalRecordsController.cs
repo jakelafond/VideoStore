@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VideoStore.Models;
+using VideoStore.Services;
 
 namespace VideoStore.Controllers
 {
@@ -19,12 +20,13 @@ namespace VideoStore.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var service = new VideoStoreServices(_context);
+            return View(service.GetAllMovies());
         }
 
-        public IActionResult About()
+        public IActionResult Create(int id)
         {
-            ViewData["Message"] = "Your application description page.";
+            
 
             return View();
         }
