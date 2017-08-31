@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using VideoStore.Models;
 using VideoStore.Services;
 
@@ -82,6 +84,23 @@ namespace VideoStore.Controllers
             return View(service.GetAllRentalRecordsCurrentlyRented());
         }
 
+        // GET: Return/CheckIn/5
+        public async Task<IActionResult> CheckIn(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var rentalRecordModel = await _context.RentalRecord.SingleOrDefaultAsync(m => m.RentalID == id);
+            if (rentalRecordModel == null)
+            {
+                return NotFound();
+            }
+            rentalRecordModel.ReturnDate = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "RentalRecord");
+        }
         public IActionResult Overdue()
         {
             //get all rental records where movies are overdue
@@ -93,6 +112,10 @@ namespace VideoStore.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        private bool RentalRecordModelExists(int id)
+        {
+            return _context.RentalRecord.Any(e => e.RentalID == id);
         }
     }
 }

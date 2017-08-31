@@ -57,7 +57,7 @@ namespace VideoStore.Services
             //construct rental view model
             var allRecords = _context.RentalRecord;
             var today = DateTime.Today;
-            return allRecords.Where(t => t.DueDate.CompareTo(today)<0).Include(m => m.MovieModel).Include(c => c.CustomerModel).Select(s => new RentalRecordViewModel(s));
+            return allRecords.Where(t => t.DueDate.CompareTo(today)<0 && t.ReturnDate == default(DateTime)).Include(m => m.MovieModel).Include(c => c.CustomerModel).Select(s => new RentalRecordViewModel(s));
 
         }
                 public IEnumerable<RentalRecordViewModel> GetAllRentalRecordsCurrentlyRented()
@@ -68,7 +68,7 @@ namespace VideoStore.Services
             var movieInfo = _context.Movie;
             //construct rental view model
             var allRecords = _context.RentalRecord;
-            return allRecords.Where(t => t.ReturnDate.CompareTo(default(DateTime))==0).Include(m => m.MovieModel).Include(c => c.CustomerModel).Select(s => new RentalRecordViewModel(s));
+            return allRecords.Where(t => t.ReturnDate == default(DateTime)).Include(m => m.MovieModel).Include(c => c.CustomerModel).Select(s => new RentalRecordViewModel(s));
         }
 
     }

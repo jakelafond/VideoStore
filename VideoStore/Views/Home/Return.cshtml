@@ -74,9 +74,7 @@
                 @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RentalID">Edit </a>
-                <a asp-action="Details" asp-route-id="@item.RentalID">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.RentalID">Delete</a>
+                <a asp-controller="Home" asp-action="CheckIn" asp-route-id="@item.RentalID">Return</a>
             </td>
         </tr>
 }
