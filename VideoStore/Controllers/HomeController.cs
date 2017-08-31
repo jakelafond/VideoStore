@@ -78,9 +78,8 @@ namespace VideoStore.Controllers
 
         public IActionResult Return()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var service = new VideoStoreServices(_context);
+            return View(service.GetAllRentalRecordsCurrentlyRented());
         }
 
         public IActionResult Overdue()

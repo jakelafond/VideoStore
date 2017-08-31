@@ -4,24 +4,27 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>CheckOutViewModel</h4>
+<h4>Rent a Movie</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
 <form asp-controller="RentalRecord" asp-action="CreateRecord">
-
+<div class="form-group">
     <label for="movie">Movie Name:</label><select name="movie">
     @foreach(var item in Model.Movies)
     {
         <option value=@item.MovieID>@item.MovieName</option>
     }
     </select>
+    </div>
+    <div class="form-group">
     <label for="customer">Customer Name:</label><select name="customer">
     @foreach(var item in Model.Customers)
     {
         <option value=@item.CustomerID>@item.CustomerName</option>
     }
     </select>
+        </div>
     <div class="form-group">
                     <label asp-for="RentalDate" class="control-label"></label>
                     <input asp-for="RentalDate" class="form-control" />

@@ -60,6 +60,16 @@ namespace VideoStore.Services
             return allRecords.Where(t => t.DueDate.CompareTo(today)<0).Include(m => m.MovieModel).Include(c => c.CustomerModel).Select(s => new RentalRecordViewModel(s));
 
         }
+                public IEnumerable<RentalRecordViewModel> GetAllRentalRecordsCurrentlyRented()
+        {
+            //get all users
+            var customerInfo = _context.Customer;
+            //get all movies
+            var movieInfo = _context.Movie;
+            //construct rental view model
+            var allRecords = _context.RentalRecord;
+            return allRecords.Where(t => t.ReturnDate.CompareTo(default(DateTime))==0).Include(m => m.MovieModel).Include(c => c.CustomerModel).Select(s => new RentalRecordViewModel(s));
+        }
 
     }
 }
