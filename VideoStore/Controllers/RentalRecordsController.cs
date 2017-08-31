@@ -20,8 +20,9 @@ namespace VideoStore.Controllers
 
         public IActionResult Index()
         {
-            var service = new VideoStoreServices(_context);
-            return View(service.GetAllMovies());
+            //get all rental records
+            var allRecords = new VideoStoreServices(_context);
+            return View(allRecords.GetAllRentalRecords());
         }
 
         public IActionResult Create()

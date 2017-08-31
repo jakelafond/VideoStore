@@ -1,0 +1,11 @@
+@model IEnumerable<RentalRecordViewModel>
+@{
+    ViewData["Title"] = "OverDue Movies";
+}
+<h1> Overdue Movies</h1>
+<h3>All Overdue Movies</h3>
+
+@foreach(var item in Model)
+{
+<p>@item.MovieName</p>
+}

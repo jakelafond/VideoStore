@@ -18,5 +18,17 @@ namespace VideoStore.Models
         public DateTime DueDate { get; set; } = DateTime.Now.AddDays(5);
         public DateTime ReturnDate { get; set; }
 
+        public RentalRecordModel()
+        {
+            
+        }
+
+        public RentalRecordModel(RentalRecordModel record)
+        {
+            
+        }
+
+
+
     }
 }

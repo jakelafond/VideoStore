@@ -85,9 +85,10 @@ namespace VideoStore.Controllers
 
         public IActionResult Overdue()
         {
-            ViewData["Message"] = "Your contact page.";
+            //get all rental records where movies are overdue
+            var allOverdueRecords = new VideoStoreServices(_context);
+            return View(allOverdueRecords.GetAllOverDueMovies());
 
-            return View();
         }
 
         public IActionResult Error()
